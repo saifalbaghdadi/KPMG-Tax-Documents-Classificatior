@@ -3,16 +3,9 @@ import lxml.html
 import bs4
 from bs4 import BeautifulSoup
 
-import json
 import pandas as pd
 import re
 import os
-
-import random
-import time
-
-import logging
-import collections
 
 
 files = pd.read_csv("data/KPMG Tax Case - Data Set.csv") #TODO replace with link variable
