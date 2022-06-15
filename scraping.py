@@ -9,9 +9,9 @@ import os
 
 
 files = pd.read_csv("data/KPMG Tax Case - Data Set.csv") #TODO replace with link variable
-files.Numac.astype("int64").astype("object")
 
 files.dropna(inplace=True)
+files.drop_duplicates(inplace=True)
 
 files["Numac"] = files.Numac.astype("int64").astype("object")
 
