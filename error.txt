@@ -1,0 +1,6 @@
+2022-06-15T20:37:05.535772+00:00 app[web.1]: raise TomlDecodeError("Key name found without value."
+2022-06-15T20:37:05.535798+00:00 app[web.1]: toml.decoder.TomlDecodeError: Key name found without value. Reached end of line. (line 1 column 2 char 1)
+2022-06-15T20:37:05.751516+00:00 heroku[web.1]: Process exited with status 1
+2022-06-15T20:37:05.836423+00:00 heroku[web.1]: State changed from starting to crashed
+2022-06-15T20:37:16.000000+00:00 app[api]: Build succeeded
+2022-06-15T20:37:25.531441+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=juridiq.herokuapp.com request_id=37d4ddda-164d-47b9-8a94-407197a9c5d3 fwd="87.67.59.48" dyno= connect= se2022-06-15T20:37:26.170000+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/favicon.ico" host=juridiq.herokuapp.com request_id=33c84d00-e47b-4048-baf6-689b11e8a2fc fwd="87.67.59.48" dyno= connect= service= status=503 bytes= protocol=https
