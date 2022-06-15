@@ -1,48 +1,55 @@
 import streamlit as st
-import numpy as np
-import os
-#import sys
 
 # import functions
-#sys.path.insert(0, '/preprocessing/lemmatization.py')
 from input_handling.lemmatization_input import lemmatizer
 from input_handling.translation_input import translate_doc
-from input_handling.translation_input import translate_doc
-
-st.header("JuridIQ")
-
-# Input text
-txt = st.text_area('Article to analyze', ''' ''')
+from input_handling.summarize_input import summarize
+from input_handling.modeling import modeling
 
 # function that translates and lemmatizes text
 def eng_lemmas(text):
-    translated_text = translate_doc(txt)
+    translated_text = translate_doc(text)
     lemmatized_txt =  lemmatizer(translated_text)
 
     return lemmatized_txt
 
+def main():
+    st.header("JuridIQ")
 
-# Get the topic (for now - lemmas from translated text)
-if st.button('Get the topic'):
-    st.write('Lemmas:', eng_lemmas(txt)) #displayed when the button is clicked
-else:
-    st.write('') #displayed when the button is unclicked
+    # Input text
+    txt = st.text_area('Article to analyze', ''' ''')
 
 
-# Get summary
-if st.button('Summarize'):
-    st.write('Summary:') #displayed when the button is clicked
-else:
-    st.write('') #displayed when the button is unclicked
+    # Get the topic
+    topic_btn = st.button('Get the topic')
+    if topic_btn:
+        with st.spinner('Topic identification...'):            
+            lemmas = eng_lemmas(txt)
+            model = modeling(lemmas)
+            st.subheader("output")
+            st.write(model)
 
-# Translate summary
-agree = st.checkbox('Translate to English')
-if agree:
-     st.write('Translating...')
 
-# Get summary
-if st.button('Recommend similar articles'):
-    st.write('Articles:') #displayed when the button is clicked
-else:
-    st.write('') #displayed when the button is unclicked     
 
+    sum_btn = st.button('Summarize')
+
+    # Get summary
+    if sum_btn:
+        with st.spinner('Preparing summary...'):
+            summary = summarize(txt)
+            st.subheader("Summary:")
+            st.write(summarize(txt)) #displayed when the button is clicked
+            # Translate summary
+            st.subheader("Summary translation:")
+            st.write(translate_doc(summary))
+
+
+    # Find similar articles
+    recommend_btn = st.button('Recommend similar articles')
+
+    if recommend_btn:
+        st.subheader("Similar articles")
+        st.write('Articles:') #displayed when the button is clicked    
+
+if __name__ == '__main__':
+    main()
