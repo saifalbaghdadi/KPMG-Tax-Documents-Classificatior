@@ -7,6 +7,7 @@ import os
 #sys.path.insert(0, '/preprocessing/lemmatization.py')
 from input_handling.lemmatization_input import lemmatizer
 from input_handling.translation_input import translate_doc
+from input_handling.translation_input import translate_doc
 
 st.header("JuridIQ")
 
@@ -17,6 +18,7 @@ txt = st.text_area('Article to analyze', ''' ''')
 def eng_lemmas(text):
     translated_text = translate_doc(txt)
     lemmatized_txt =  lemmatizer(translated_text)
+
     return lemmatized_txt
 
 

@@ -31,6 +31,7 @@ def lemmatizer(text):
                             and t.lemma_.lower() not in overly_abundant
                             and t.lemma_.lower() not in months
                             and not re.match(r".*\d.*", t.lemma_)]
-
         return cleaned_lemmas
 
+# lemmas = lemmatizer('texAAN DE BRUSSELSE HOOFDSTEDELIJKE REGERINGTer attentie van de leden van de Regering,De maatregelen afgekondigd door de federale overheid op 18 maart 2020 om de verspreiding van het coronavirus')
+# print(len(lemmas), lemmas)
