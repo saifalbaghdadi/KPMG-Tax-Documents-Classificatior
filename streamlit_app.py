@@ -1,15 +1,22 @@
 import streamlit as st
 import numpy as np
 import os
+#import sys
+
+# import functions
+#sys.path.insert(0, '/preprocessing/lemmatization.py')
+from preprocessing.lemmatization_input import lemmatizer
+
 st.header("JuridIQ")
 
 # Input text
 txt = st.text_area('Article to analyze', ''' ''')
-# st.write('Sentiment:', run_sentiment_analysis(txt))
+preprocessed_txt =  lemmatizer(txt)
+
 
 # Get the topic
 if st.button('Get the topic'):
-    st.write('Topic:') #displayed when the button is clicked
+    st.write('Lemmas:', preprocessed_txt) #displayed when the button is clicked
 else:
     st.write('') #displayed when the button is unclicked
 
@@ -30,3 +37,4 @@ if st.button('Recommend similar articles'):
     st.write('Articles:') #displayed when the button is clicked
 else:
     st.write('') #displayed when the button is unclicked     
+
