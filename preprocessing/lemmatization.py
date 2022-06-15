@@ -26,7 +26,7 @@ def lemmatizer(texts, batchsize: int = 1):
 
     for batch in range(batches):
 
-        print(f"v2.4: Batch {batch + 1} of {batches}")
+        # print(f"v2.4: Batch {batch + 1} of {batches}")
         to_lemmatize_batch = texts[20*batch:20*(batch+1)]
 
         cleaned_batch = [re.sub(r'[\W\d]', " ", text) for text in to_lemmatize_batch]
@@ -38,7 +38,7 @@ def lemmatizer(texts, batchsize: int = 1):
                             and t.lemma_.replace("_", "").lower() not in months
                             and len(t.lemma_.replace("_", "")) > 3] for doc in docs]
 
-        print(f"Batch {batch + 1} done!")
+        # print(f"Batch {batch + 1} done!")
 
     lemmatized_joined = []
 
@@ -47,3 +47,5 @@ def lemmatizer(texts, batchsize: int = 1):
     lemmatized_joined = [" ".join(article.split()) for article in lemmatized_joined]
 
     return lemmatized_joined
+
+
