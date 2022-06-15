@@ -21,20 +21,19 @@ def main():
 
 
     # Get the topic
-    topic_btn = st.button('Get the topic')
-    if topic_btn:
+    #topic_btn = st.button('Get the topic')
+    if st.button('Get the topic'):
         with st.spinner('Topic identification...'):            
             lemmas = eng_lemmas(txt)
             model = modeling(lemmas)
             st.subheader("output")
             st.write(model)
+            #st.write(lemmas)
 
-
-
-    sum_btn = st.button('Summarize')
 
     # Get summary
-    if sum_btn:
+    # sum_btn = st.button('Summarize')    
+    if st.button('Summarize'):
         with st.spinner('Preparing summary...'):
             summary = summarize(txt)
             st.subheader("Summary:")
@@ -45,11 +44,10 @@ def main():
 
 
     # Find similar articles
-    recommend_btn = st.button('Recommend similar articles')
-
-    if recommend_btn:
-        st.subheader("Similar articles")
-        st.write('Articles:') #displayed when the button is clicked    
+    # recommend_btn = st.button('Recommend similar articles')
+    if st.button('Recommend similar articles'):
+        st.subheader("Similar articles:")
+        st.write('Articles.') #displayed when the button is clicked    
 
 if __name__ == '__main__':
     main()
