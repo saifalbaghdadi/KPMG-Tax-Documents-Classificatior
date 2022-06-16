@@ -1,7 +1,7 @@
 import streamlit as st
 
 # import functions
-from input_handling.lemmatization_input import lemmatizer
+from preprocessing.lemmatization import lemmatizer
 from input_handling.translation_input import translate_doc
 from input_handling.summarize_input import summarize
 from input_handling.modeling import modeling
@@ -9,9 +9,11 @@ from input_handling.modeling import modeling
 # function that translates and lemmatizes text
 def eng_lemmas(text):
     translated_text = translate_doc(text)
-    lemmatized_txt =  lemmatizer(translated_text)
+    lemmatized_txt =  lemmatizer([translated_text])
 
     return lemmatized_txt
+
+
 
 def main():
     st.header("JuridIQ")
@@ -25,10 +27,10 @@ def main():
     if st.button('Get the topic'):
         with st.spinner('Topic identification...'):            
             lemmas = eng_lemmas(txt)
-            model = modeling(lemmas)
+            # model_output = define_topic(lemmas)
             st.subheader("output")
-            st.write(model)
-            #st.write(lemmas)
+            
+            st.write(lemmas)
 
 
     # Get summary
