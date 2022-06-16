@@ -1,5 +1,7 @@
 import re
 
+from progress.bar import Bar
+
 #import nltk
 import nltk
 nltk.download("stopwords")
@@ -24,9 +26,10 @@ def lemmatizer(texts, batchsize: int = 1):
     lemmatized = []
     batches = int(len(texts) / batchsize) + 1
 
+    bar = Bar('Processing', max=batches)
+    
     for batch in range(batches):
 
-        print(f"v2.4: Batch {batch + 1} of {batches}")
         to_lemmatize_batch = texts[batchsize*batch:batchsize*(batch+1)]
 
         cleaned_batch = [re.sub(r'[\W\d]', " ", text) for text in to_lemmatize_batch]
@@ -38,13 +41,16 @@ def lemmatizer(texts, batchsize: int = 1):
                             and t.lemma_.replace("_", "").lower() not in months
                             and len(t.lemma_.replace("_", "")) > 3] for doc in docs]
 
-        print(f"Batch {batch + 1} done!")
+        bar.next()
+
 
     lemmatized_joined = []
 
     [lemmatized_joined.append(" ".join(words)) for words in lemmatized]
 
     lemmatized_joined = [" ".join(article.split()) for article in lemmatized_joined]
+
+    bar.finish()
 
     return lemmatized_joined
 

@@ -20,7 +20,7 @@ def get_chunks(s, maxlength, separator):
 
 output = ""
 
-def translate_doc(text):
+def translate_text(text):
     text = text
     number_of_characters = len(text)
     global output
