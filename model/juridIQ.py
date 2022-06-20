@@ -29,7 +29,7 @@ class JuridIQ():
     def save_model(self, model = None):
 
         if model is None:
-            self.model.save()
+            self.model.save("pretrained")
 
         else:
             model.save()
