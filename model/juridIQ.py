@@ -10,10 +10,10 @@ class ModelNotTrainedException(Exception):
 class JuridIQ():
 
 
-    def __init__(self, model="pretrained"):
+    def __init__(self, model="import"):
 
-        if model == "pretrained":
-            self.model = load_model()
+        if model == "import":
+            self.model = self.load_model()
             self.trained = True
         else:
             self.model = BERTopic(language="multilingual", calculate_probabilities = True, verbose = True)
@@ -26,13 +26,18 @@ class JuridIQ():
         self.trained = True
 
 
-    def save_model(self, model = None, model_name="pretrained"):
+    def save_model(self, model = None):
 
         if model is None:
-            self.model.save(model_name)
+            self.model.save("pretrained")
 
         else:
             model.save()
+
+
+    def load_model(self, model="pretrained"):
+
+        return BERTopic.load(model)
 
 
     def get_topics(self, articles):
@@ -48,19 +53,7 @@ class JuridIQ():
             raise ModelNotTrainedException("Attempting to predict topic using an untrained model")
 
         return self.model.transform(article)
-    
-    def get_keyword_topic(self, keyword):
 
-        if self.trained is False:
-            raise ModelNotTrainedException("Attempting to predict topic using an untrained model")
-
-        return self.model.find_topics(keyword, top_n=50)
-
-                   
-                   
-def load_model(model="pretrained"):
-
-        return BERTopic.load(model)
 
 
 def is_similar(first_list, second_list, threshold=0.85):
