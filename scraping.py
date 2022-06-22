@@ -31,24 +31,23 @@ files["Link FR"] = links_fr
 
 def get_numac_text(numac, language="nl"):
     row = files[files.Numac == numac]
-    
-    if row is not None and f"{row.Numac}.txt" not in os.listdir("data") and (language == "nl" or language == "fr") :
+    if not row.empty and f"{numac}.txt" not in os.listdir("data") and (language == "nl" or language == "fr") :
         
-        website = requests.get(row[f"LINK {language.upper}"])
-
+        website = requests.get(row[f"Link {language.upper()}"][0])
+        
         soup = BeautifulSoup(website.content)
-        
         text = soup.get_text()
         relevant_text = re.search(r"laatste woord([\s\S]*)\n begin\n", text)
         
-        if relevant_text != None:
+        if relevant_text is not None:
             return relevant_text.group(1).strip()
         
-    elif f"{row.Numac}.txt" in os.listdir("data"):
-        with open(f'data/{row.Numac}.txt', 'r') as file:
+    elif f"{numac}.txt" in os.listdir("data"):
+        with open(f'data/{numac}.txt', 'r') as file:
             return file.read()
     
     else:
+        print("Made it to the else")
         return ""
 
 def get_all_numac(language="nl"):
